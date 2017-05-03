@@ -26,14 +26,10 @@ class TestRunner() {
 
         fun register(suites: List<TestSuite>) = this.suites.addAll(suites)
 
-        internal fun run() {
+        fun run() {
             suites.forEach { it.beforeClass() }
             suites.forEach { it.run() }
             suites.forEach { it.afterClass() }
         }
     }
-}
-
-fun main() {
-    TestRunner.run()
 }
