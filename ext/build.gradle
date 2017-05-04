@@ -1,0 +1,22 @@
+targetList.each { target ->
+    task("${target}Junit", type: JavaExec) {
+        main = 'org.jetbrains.kotlin.cli.bc.K2NativeKt'
+        classpath = project(':backend.native').configurations.cli_bc
+        def distDir = "${project.parent.file('dist')}"
+        jvmArgs "-ea",
+                "-Dkonan.home=" + distDir,
+                "-Djava.library.path=$distDir/konan/nativelib"
+        def outputFile = "${project.buildDir}/$target/junit.kt.bc"
+        def distLibDir = "$distDir/lib/$target"
+        args('-output', outputFile,
+                '-nolink', '-ea',
+                '-target', target,
+                '-library', "$distLibDir/stdlib.kt.bc",
+                '-runtime', "$distLibDir/runtime.bc",
+                '-properties', project(':backend.native').file('konan.properties'),
+                *project.globalBuildArgs)
+
+        inputs.dir(project.file('src/main/kotlin'))
+        outputs.file(outputFile)
+    }
+}
