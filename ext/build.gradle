@@ -4,7 +4,7 @@ targetList.each { target ->
         classpath = project(':backend.native').configurations.cli_bc
         def distDir = "${project.parent.file('dist')}"
         jvmArgs "-ea",
-                "-Dkonan.home=" + distDir,
+                "-Dkonan.home=$distDir",
                 "-Djava.library.path=$distDir/konan/nativelib"
         def outputFile = "${project.buildDir}/$target/junit.kt.bc"
         def distLibDir = "$distDir/lib/$target"
@@ -13,7 +13,9 @@ targetList.each { target ->
                 '-target', target,
                 '-library', "$distLibDir/stdlib.kt.bc",
                 '-runtime', "$distLibDir/runtime.bc",
+                '-o', "$outputFile",
                 '-properties', project(':backend.native').file('konan.properties'),
+                "${project.projectDir}/junit/src/main/kotlin",
                 *project.globalBuildArgs)
 
         inputs.dir(project.file('src/main/kotlin'))
