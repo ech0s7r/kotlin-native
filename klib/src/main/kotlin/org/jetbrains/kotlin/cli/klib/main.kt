@@ -96,7 +96,10 @@ class Library(val name: String, val requestedRepository: String?, val target: St
     }
 
     fun install() {
-        remove(true) 
+
+        val lastPathElement = name.split("/").last()
+        val repositoryLibraryName = lastPathElement.split(".").dropLast(1).joinToString(separator = ".")
+        Library(repositoryLibraryName, requestedRepository, target).remove(true)
 
         val library = ZippedKonanLibrary(libraryInCurrentDir(name))
         val newLocation = File(repository, "klib")
