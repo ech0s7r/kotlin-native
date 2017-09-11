@@ -45,7 +45,7 @@ enum class KonanTarget(val targetSuffix: String, val programSuffix: String, var 
         RASPBERRYPI   -> Platform.LINUX
         LINUX         -> Platform.LINUX
         MINGW         -> Platform.WINDOWS
-        WASM32        -> Platform.WASM32
+        WASM32        -> Platform.WASM
     }
 }
 
