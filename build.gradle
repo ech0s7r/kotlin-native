@@ -317,13 +317,10 @@ task performance(type: GradleBuild) {
     dir = 'performance'
     tasks = ['build', 'bench']
 
-    def exe_suffix = '.kexe'
-    if (new PlatformInfo().isWindows())
-        exe_suffix = '.exe'
     doFirst {
         startParameter.projectProperties = [
                 'konanPluginClasspath' : project(':tools:kotlin-native-gradle-plugin').tasks.getByName('jar').archivePath.canonicalPath,
-                'exe_suffix': exe_suffix]
+                'exe_suffix': TargetManager.host.getProgramSuffix()]
     }
 }
 
