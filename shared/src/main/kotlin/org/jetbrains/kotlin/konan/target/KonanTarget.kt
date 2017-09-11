@@ -21,7 +21,7 @@ enum class Platform {
     LINUX,
     WINDOWS,
     ANDROID,
-    WASM32
+    WASM
 }
 
 enum class KonanTarget(val targetSuffix: String, val programSuffix: String, var enabled: Boolean = false) {
